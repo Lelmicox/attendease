@@ -22,6 +22,32 @@ unset($_SESSION['signin-data']);
 
 <body>
   <div class="auth-body">
+
+   <div class="auth-hero">
+    <div class="hero-content">
+      <span class="badge"><i class="fa-solid fa-graduation-cap"></i> AttendEase Portal</span>
+      <h1>Welcome Back to Campus</h1>
+      <p>Streamline your academic journey. Track attendance, manage course schedules, and view real-time reports with ease.</p>
+      
+      <div class="features-list">
+        <div class="feature-item">
+          <i class="fa-solid fa-qrcode"></i>
+          <span>Instant QR Check-ins</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Live Analytics</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Secure Access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
     <?php if (isset($_SESSION['signup-success'])): ?>
       <div class="error-message" id="message">
         <p><?= $_SESSION['signup-success'];
@@ -68,9 +94,7 @@ unset($_SESSION['signin-data']);
       <p>Don’t have an account? <a href="signup.php">Sign Up</a></p>
     </div>
 
-    <footer>
-      <p>&copy; 2026 AttendEase | Designed for University Attendance</p>
-    </footer>
+    
   </div>
 </body>
 

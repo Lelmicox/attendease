@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-include __DIR__ . "/partials/header.php";
+include __DIR__ . "/includes/header.php";
 require_once __DIR__ . "/config/database.php";
 
 $session = null;

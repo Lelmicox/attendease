@@ -1,6 +1,7 @@
-<?php include "./partials/header.php"; ?>
-
-<section class="hero">
+<?php
+include __DIR__ . '/includes/header.php';
+?>
+<section id="hero" class="hero">
     <div class="hero-text">
         <h1>Smart Attendance, Simplified</h1>
         <p>Mark your attendance seamlessly with QR codes and location validation.</p>

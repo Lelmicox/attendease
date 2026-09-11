@@ -1,18 +1,34 @@
 const menuToggle1 = document.getElementById('menu-toggle1'); // hamburger
 const menuToggle2 = document.getElementById('menu-toggle2'); // close icon
 const nav = document.querySelector('nav');
-const header = document.querySelector('header');
+
 
 menuToggle1.addEventListener('click', () => {
+
+    nav.classList.remove('closing');
     nav.classList.add('active');
+
+
+    // Toggle icon visibility
     menuToggle1.style.display = 'none';
     menuToggle2.style.display = 'block';
+
+    // Animate the incoming close icon
+    menuToggle2.style.animation = 'fadeSlideIn 0.4s ease forwards';
+
 });
 
 menuToggle2.addEventListener('click', () => {
-    nav.classList.remove('active');
-    menuToggle1.style.display = 'block';
+nav.classList.remove('active');
+nav.classList.add('closing');
+
+// Toggle icon visibility
     menuToggle2.style.display = 'none';
+    menuToggle1.style.display = 'block';
+
+    // Animate the incoming hamburger icon
+    menuToggle1.style.animation = 'fadeSlideIn 0.4s ease forwards';
+
 });
 
 
@@ -29,6 +45,41 @@ window.addEventListener('scroll', () => {
     }
     lastScrollY = window.scrollY;
 });
+// ===================================================
+// this shit_code is for removing the nav if user click's on the 
+// background if the nav appears
+//======================================
+const navBar = document.querySelector('.nav');
+const sideBarOverlay = document.getElementById('sidebar-overlay');
+const openBtn = document.getElementById('menu-toggle1');
+const closeBtn = document.getElementById('menu-toggle2');
+
+function openSidebar() {
+  if (navBar && sideBarOverlay) {
+    navBar.classList.add('active');
+    sideBarOverlay.classList.add('active');
+  }
+}
+
+function closeSidebar() {
+  if (navBar && sideBarOverlay) {
+    navBar.classList.remove('active');
+    sideBarOverlay.classList.remove('active');
+  }
+}
+
+// Open/Close triggers
+if (openBtn) openBtn.addEventListener('click', openSidebar);
+if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+
+// Close when tapping overlay background
+if (sideBarOverlay) {
+  sideBarOverlay.addEventListener('click', () => {
+    if (navBar.classList.contains('active')) {
+      closeSidebar();
+    }
+  });
+}
 
 
 // ================================================

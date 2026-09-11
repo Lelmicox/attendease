@@ -6,8 +6,8 @@ if (!isset($_SESSION['user-id'])) {
     die("Access denied. You must log in.");
 }
 
-if ($_SESSION['position'] !== 'lecturer' || 'admin') {
-    die("Access denied. Only lecturers can view this page.");
+if ($_SESSION['user-id'] !== 'lecturer' || $_SESSION['user-id'] !== 'admin') {
+    die("Access denied. Only lecturers and admins can view this page.");
 }
 
 

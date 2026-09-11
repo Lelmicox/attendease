@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -7,10 +6,40 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg, #0f2027, #203a43, #f6f6f66e);
     color: #f5f5f5;
     min-height: 100vh;
 }
+
+/* ==========================================================================
+   Global Drop-Down Entry Animations
+   ========================================================================== */
+@keyframes pageItemDropDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Base class applied to load-in items */
+.hero-text h1, .hero-text p, .hero-text .btn,
+.about h1, .about p, .card,
+.services h1, .services p, .service-card,
+.contact h1, .contact p, .contact-grid,
+.qr h1, .qr p, .qr-form, .qr-box,
+.form-container {
+    animation: pageItemDropDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered load timing for grids/cards */
+.card:nth-child(1), .service-card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2), .service-card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3), .service-card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4), .service-card:nth-child(4) { animation-delay: 0.4s; }
 
 /* Default header styling */
 header {
@@ -37,7 +66,7 @@ header nav {
 
 header.hidden {
     transform: translateY(-100%);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 
 }
 
@@ -47,7 +76,7 @@ header .logo {
     color: #1abc9c;
 
     cursor: pointer;
-    transition: slideIn 0.5s ease-in-out;
+    transition: slideIn 0.8s ease-in-out;
 }
 
 
@@ -83,6 +112,8 @@ nav ul li a:hover {
     background: rgba(255, 255, 255, 0.05);
 }
 
+
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -90,7 +121,11 @@ nav ul li a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: url('../assets/images/bg-pattern.png') no-repeat center center/cover;
+       background: linear-gradient(rgba(0, 0, 0, 0.936),
+            rgba(0, 0, 0, 0.822)),
+        url('../images/school1.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; /* parallax */
 }
 
 .hero-text h1 {
@@ -136,6 +171,9 @@ footer {
     bottom: 0;
     width: 100%;
     backdrop-filter: blur(15px);
+       margin-top: 20px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 
@@ -314,82 +352,156 @@ footer {
 
 
 
-/* =QR Attendance Page ======================================= 
-====================================*/
-.qr {
-    padding: 120px 20px 60px;
-    text-align: center;
+
+
+
+/* General page layout */
+.bodyy {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
-.qr h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
-    color: #1abc9c;
+/* Container */
+.qr-form, .departments, .courses {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.qr p {
-    font-size: 18px;
-    max-width: 700px;
-    margin: 0 auto 20px;
-    line-height: 1.6;
+.qr-form h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+/* Inputs */
+.qr-form input, .qr-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.qr-form button {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.qr-form button:hover {
+  background: #2980b9;
+}
+
+/* QR Display */
+.qr-box {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.qr-box img {
+  max-width: 250px;
+  height: auto;
+  border: 4px solid #3498db;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .qr-form {
+    padding: 15px;
+    margin: 10px;
+  }
+  .qr-box img {
+    max-width: 180px;
+  }
 }
 
 
-
-.qr-note {
-    font-size: 16px;
-    color: #ccc;
-}
-
-.qr-instructions {
-    text-align: left;
-    max-width: 600px;
-    margin: 40px auto;
-}
-
-.qr-instructions h2 {
-    color: #1abc9c;
-    margin-bottom: 15px;
-}
-
-.qr-instructions ul {
-    list-style: none;
-    padding: 0;
-}
-
-.qr-instructions li {
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-.qr-instructions i {
-    margin-right: 10px;
-    color: #1abc9c;
-}
 
 /* ==== authentication stylings ==== */
 
 .auth-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #f5f5f5;
-    padding: 20px;
-
+    display: flex;
+    justify-content: end;
+    padding:10px 5%;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.936),
+            rgba(0, 0, 0, 0.822)),
+        url('../images/school1.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; /* parallax */
 }
 
+.auth-hero {
+  flex: 1.2;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+}
 
+.auth-hero .badge {
+  display: inline-block;
+  background: rgba(26, 188, 156, 0.2);
+  color: #1abc9c;
+  padding: 6px 14px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border: 1px solid rgba(26, 188, 156, 0.3);
+}
+
+.auth-hero h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.auth-hero p {
+  color: #d1d5db;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #e5e7eb;
+}
+
+.feature-item i {
+  color: #1abc9c;
+  font-size: 1.1rem;
+}
+/* Error message styling */
 .error-message {
     border-radius: 12px;
     margin-top: 15px;
-    /* background: rgba(220, 53, 69, 0.2) !important; */
-
     padding: 22px 20px;
-    height: 15% !important;
     width: 90%;
     max-width: 400px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
@@ -397,26 +509,17 @@ footer {
     color: #ffffff;
     cursor: default;
     font-size: 0.95rem;
-    backdrop-filter: blur(20px) !important;
+    backdrop-filter: blur(20px);
     display: flex;
-    flex-direction: row;
-    justify-content: space-between !important;
+    justify-content: space-between;
     align-items: center;
-    text-align: left;
-    gap: 15px;
     opacity: 0;
     transform: translateY(-20px);
-    font-family: inherit;
     position: fixed;
     top: 20px;
+    right:0;
 }
 
-.error-message #error-cancel {
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-/* Slide in gently */
 .error-message.show {
     animation: fadeSlideIn 0.6s ease forwards;
 }
@@ -426,45 +529,31 @@ footer {
 }
 
 @keyframes fadeSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeSlideOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    to {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(-20px); }
 }
 
 /* Form container */
 .form-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 40px 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border-radius: 15px;
+    padding:40px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    animation: fadeInUp 1s ease;
+    max-width: 500px;
     width: 100%;
-    max-width: 420px;
-    text-align: center;
-    transition: all 0.3s ease;
 }
 
-/* Headings */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .form-container h2 {
     margin-bottom: 25px;
     color: #1abc9c;
@@ -486,7 +575,7 @@ label {
 
 /* Inputs & Dropdowns */
 input,
-select#role {
+select {
     width: 100%;
     padding: 14px 16px;
     margin-top: 8px;
@@ -496,18 +585,17 @@ select#role {
     color: #ffffff;
     outline: none;
     font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
     transition: all 0.3s ease;
-    box-sizing: border-box;
-
-    /* FIX 2: Clear native browser control styles that blow past widths */
-    -webkit-appearance: menulist;
-    appearance: menulist;
+    overflow-x: hidden;
+}
+input,
+select, option {
+    background: rgba(46, 37, 28, 0.587);
+    
 }
 
-
 input:focus,
-select#role:focus {
+select:focus {
     background: rgba(255, 255, 255, 0.15);
     border-color: #1abc9c;
     box-shadow: 0 0 8px rgba(26, 188, 156, 0.4);
@@ -517,13 +605,6 @@ input::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
 
-select#role option {
-    background-color: #1c313a;
-    color: #ffffff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-}
-
 /* Buttons */
 button {
     width: 100%;
@@ -531,7 +612,7 @@ button {
     margin-top: 30px;
     border-radius: 8px;
     border: none;
-    background: #1abc9c;
+    background: rgba(0, 0, 0, 0.909);
     color: white;
     font-size: 1.1rem;
     font-weight: 700;
@@ -544,10 +625,6 @@ button:hover {
     background: #16a085;
     box-shadow: 0 8px 20px rgba(22, 160, 133, 0.4);
     transform: translateY(-1px);
-}
-
-button:active {
-    transform: translateY(1px);
 }
 
 /* Links */
@@ -567,51 +644,10 @@ button:active {
     text-decoration: underline;
 }
 
-/* Footer Styling styling alignment */
-footer {
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-}
 
-/* ==========================================================================
-   Responsive Query for Mobile Screens.FS..
-   ========================================================================== */
-@media (max-width: 480px) {
-    .auth-body {
-        padding: 10px;
-        justify-content: flex-start;
 
-        padding-top: 40px;
-    }
 
-    .form-container {
-        border-radius: 14px;
-        padding: 35px 20px;
-        box-shadow: none;
-        background: rgba(255, 255, 255, 0.08);
-    }
 
-    .form-container h2 {
-        font-size: 2rem;
-        /* Bold & prominent display */
-    }
-
-    input,
-    select#role {
-        padding: 16px;
-
-        font-size: 16px;
-        width: 100%;
-
-    }
-
-    button {
-        padding: 16px;
-        font-size: 1.15rem;
-    }
-}
 
 /* Attendance_list.php */
 
@@ -796,25 +832,5 @@ table tbody tr:hover {
 
     100% {
         transform: rotate(360deg);
-    }
-}
-
-/* ✅ Responsive tweaks */
-@media (max-width: 480px) {
-    .qr {
-        padding: 100px 15px 40px;
-    }
-
-    .qr-title {
-        font-size: 1.6rem;
-    }
-
-    .qr-form {
-        max-width: 100%;
-        padding: 20px;
-    }
-
-    .qr-img {
-        max-width: 200px;
     }
 }

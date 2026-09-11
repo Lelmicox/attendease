@@ -24,6 +24,32 @@ unset($_SESSION['signup-data']);
 
 <body>
   <div class="auth-body">
+
+  <div class="auth-hero">
+    <div class="hero-content">
+      <span class="badge"><i class="fa-solid fa-graduation-cap"></i> AttendEase Portal</span>
+      <h1>Welcome Back to Campus</h1>
+      <p>Streamline your academic journey. Track attendance, manage course schedules, and view real-time reports with ease.</p>
+      
+      <div class="features-list">
+        <div class="feature-item">
+          <i class="fa-solid fa-qrcode"></i>
+          <span>Instant QR Check-ins</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Live Analytics</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Secure Access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
     <?php if (isset($_SESSION['signup'])): ?>
       <div class="error-message" id="message">
         <p><?= $_SESSION['signup'];
@@ -52,31 +78,47 @@ unset($_SESSION['signup-data']);
       <h2>Create Account</h2>
 
       <form id="signupForm" action="./signup-logic.php" method="POST">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" value="<?= $fullname ?>" placeholder="John Doe" required>
+        <!-- Full Name -->
+        <label for="name">Full Name:</label>
+        <input type="text" name="name" id="name" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="<?= $email ?>" placeholder="yourname@domain.com" required>
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="pwd" value="<?= $pwd ?>" placeholder="Create a strong password"
-          required>
+        <!-- Password -->
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
 
-        <label for="role">Role</label>
-        <select name="role" id="role">
-          <option value="student" <?= $role === 'student' ? 'selected' : '' ?>>Student</option>
-          <option value="lecturer" <?= $role === 'lecturer' ? 'selected' : '' ?>>Lecturer</option>
-          <option value="admin" <?= $role === 'admin' ? 'selected' : '' ?>>Admin</option>
+        <!-- Registration Number -->
+        <label for="reg_number">Registration Number:</label>
+        <input type="text" name="reg_number" id="reg_number" required>
+
+        <!-- Level -->
+        <label for="level">Level:</label>
+        <select name="level" id="level" required>
+          <option value="">-- Select Level --</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="300">300</option>
+          <option value="400">400</option>
         </select>
 
+        <!-- Faculty -->
+        <label for="faculty">Faculty:</label>
+        <input type="text" name="faculty" id="faculty" required>
+
+        <!-- Department -->
+        <label for="department">Department:</label>
+        <input type="text" name="department" id="department" required>
+
         <button type="submit">Sign Up</button>
+
       </form>
       <p>Already have an account? <a href="signin.php">Sign in</a></p>
     </div>
 
-    <footer>
-      <p>&copy; 2026 AttendEase | Designed for University Attendance</p>
-    </footer>
+ 
   </div>
 </body>
 

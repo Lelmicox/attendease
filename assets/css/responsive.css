@@ -1,3 +1,22 @@
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /*  Responsive css */
 @media (max-width: 850px) {
 nav {
@@ -51,6 +70,7 @@ nav {
     nav ul li {
         margin: 15px 0;
     }
+    
 }
 
 
@@ -88,7 +108,7 @@ nav {
 
     nav ul {
         flex-direction: column;
-         /* background: rgba(0, 0, 0, 0.9); */
+    
 
     }
 
@@ -189,26 +209,28 @@ nav {
 
 
 
-/* ✅ Full-screen mobile layout */
+/* ✅ Mobile responsiveness */
 @media (max-width: 480px) {
     .auth-body {
-        padding: 0;
-    
+        padding: 10px;
+        justify-content: flex-start;
+        padding-top: 40px;
+    }
+    .auth-hero{
+        opacity: 0;
+        display:none;
     }
 
     .form-container {
-        border-radius: 0;
-        width: 100%;
-        max-width: 440px !important;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
+        border-radius: 14px;
+        box-shadow: none;
+        background:transparent;
+        height: auto;
+        
     }
 
     .form-container h2 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         margin-bottom: 1rem;
     }
 
@@ -219,12 +241,11 @@ nav {
     }
 
     label {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     footer {
-        display: none;
-        /* hide footer on mobile */
+        display: none; /* hide footer on mobile */
     }
 }
 
@@ -233,7 +254,12 @@ nav {
     .form-container {
         max-width: 650px !important;
     }
+    .auth-hero{
+        opacity: 0;
+        display:none;
+    }
 }
+
 
 
 /* Generate_qr_code esponsive styling shit */
@@ -242,7 +268,10 @@ nav {
 @media (max-width: 480px) {
   
 
-
+.auth-hero{
+        opacity: 0;
+        display:none;
+    }
     .qr {
         padding: 100px 15px 40px;
         overflow: hidden;
@@ -280,7 +309,10 @@ nav {
 
 /* ✅ Tablet responsiveness */
 @media (min-width: 481px) and (max-width: 768px) {
-  
+  .auth-hero{
+        opacity: 0;
+        display:none;
+    }
 
     .qr {
         padding: 110px 20px 50px;
@@ -302,6 +334,7 @@ nav {
 
 /* ✅ Desktop responsiveness */
 @media (min-width: 769px) {
+
     .qr {
         padding: 120px 20px 60px;
     }

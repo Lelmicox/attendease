@@ -1,4 +1,6 @@
-<?php include "partials/header.php"; ?>
+<?php
+include __DIR__ . "/includes/header.php";
+?>
 
     <section class="contact">
         <div class="container">

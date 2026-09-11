@@ -1,80 +1,82 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "../config/database.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $pwd = trim($_POST['pwd']);
+    
+    // Trim input and validate email format
+    $email = trim($_POST['email'] ?? '');
+    $pwd   = trim($_POST['pwd'] ?? '');
 
-
-    // ====================================================
-    // verifying the fucking inputs
-    // ====================================================
+    // Validate empty inputs
     if (empty($email) || empty($pwd)) {
-        $_SESSION['signin'] = "please fill in all empty fieilds";
-        header("location: signin.php");
+        $_SESSION['signin'] = "Please fill in all fields.";
+        $_SESSION['signin-data'] = ['email' => $email];
+        header("Location: signin.php");
         exit;
     }
 
-    // =========================================================
-    // check the password length
-    // =======================================================
-    if (strlen($pwd) < 8) {
-        $_SESSION['signin'] = "Password must be at least 8 characters."; $_SESSION['signin-data'] = $_POST;header("location: signin.php");
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['signin'] = "Invalid email format.";
+        $_SESSION['signin-data'] = ['email' => $email];
+        header("Location: signin.php");
         exit;
     }
-
 
     try {
-        // =========================================================
-        // check if the user exit in the database...
-        // =======================================================
-        $stmt = $conn->prepare('SELECT * FROM users WHERE email = ?');
+        // Fetch user record
+        $stmt = $conn->prepare('SELECT * FROM users WHERE email = ? LIMIT 1');
         $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // =========================================================
-        // if the user exit then verify the password and create session for the user
-        // =======================================================
-        if ($user = $stmt->fetch()) {
-            if (password_verify($pwd, $user['pwd'])) {
+        // Verify user and password hash
+        if ($user && password_verify($pwd, $user['pwd'])) {
+            
+            // Prevent Session Fixation attacks
+            session_regenerate_id(true);
 
-                $position = strtolower(trim($user['position'] ?? '')); $_SESSION['user-id'] = $user['id']; $_SESSION['email'] = $user['email']; $_SESSION['position'] = $position;
+            $role = strtolower(trim($user['role'] ?? ''));
 
-                // $admin_secret_passcode = 'admin_@351#';
-                // $lecturer_secret_passcode = 'lecturer_@351#';
-                if($position === 'lecturer' || $position === 'admin') {
-                    header("Location: ../backend/generate_qr_code.php");
-                    die();
-                   }
-               
+            // Set session variables
+            $_SESSION['user-id'] = $user['id'];
+            $_SESSION['email']   = $user['email'];
+            $_SESSION['role']    = $role;
 
-            } else {
-                $_SESSION['signin'] = "invalid email or password";$_SESSION['signin-data'] = $_POST;
-                header("location: signin.php");
-                exit;
-            } 
-        } 
-        else {
-            $_SESSION['signin'] = "invalid email or password";$_SESSION['signin-data'] = $_POST;
-            header("location: signin.php");
-            die();
+            // Redirect based on role
+          
+if ($role === 'student') {
+    header("Location: ../students/students_dashboard.php");
+    exit;
+} elseif ($role === 'lecturer') {
+    header("Location: ../lecturer/dashboard.php");
+    exit;
+} elseif ($role === 'admin') {
+    header("Location: ../admin/admin_dashboard.php");
+    exit;
+}
+else {
+    $_SESSION['signin'] = "Unauthorized role.";
+    header("Location: ./signin.php");
+    exit;
+}
+        } else {
+            $_SESSION['signin'] = "Invalid email or password.";
+            $_SESSION['signin-data'] = ['email' => $email];
+            header("Location: signin.php");
+            exit;
         }
 
-
-
-
-
-
-
-
     } catch (PDOException $e) {
-
-        $_SESSION['signin'] = "connection_failed: " . $e->getMessage();$_SESSION['signin-data'] = $_POST;
-        header("location: signin.php");
+        $_SESSION['signin'] = "Database error. Please try again.";
+        $_SESSION['signin-data'] = ['email' => $email];
+        header("Location: signin.php");
         exit;
     }
 
-
 } else {
-    header("location: signin.php");
+    header("Location: signin.php");
     exit;
 }
