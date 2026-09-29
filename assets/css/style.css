@@ -6,7 +6,8 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #f6f6f66e);
+ background: linear-gradient(135deg, #0f2027, #132126, #203a43e0);
+
     color: #f5f5f5;
     min-height: 100vh;
 }
@@ -467,7 +468,7 @@ footer {
     min-height: 100vh;
     display: flex;
     justify-content: end;
-    padding: 10px 5%;
+    padding: 10px 2% 5%;
     align-items: center;
     background: linear-gradient(rgba(0, 0, 0, 0.936),
             rgba(0, 0, 0, 0.822)),
@@ -479,11 +480,12 @@ footer {
 
 .auth-hero {
     flex: 1.2;
-    padding: 50px;
+    padding:0px 50px 0px 0px ;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     color: #ffffff;
+  
 }
 
 .auth-hero .badge {
